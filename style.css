@@ -1,7 +1,6 @@
-h6 { 
-    font-family: 'Montserrat', sans-serif;
-    color: #ff0000 ;   
- }
+i {
+    color: #ED6434 ;
+  }
  
  .carousel-control-prev-icon, .carousel-control-next-icon {
     filter: invert(108%);
