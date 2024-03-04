@@ -9,3 +9,14 @@ i {
   i:hover {
     color: #263067;
   }
+.whatsapp {
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+    z-index: 10;
+    width: 55px;
+  }
+
+
+
+  
