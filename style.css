@@ -20,7 +20,7 @@ i {
   @media (min-width: 600px) {
     .con {
       max-width: 480px;
-      box-shadow: 0px 0px 20px 8px rgba(20, 20, 20, 0.3);
+      box-shadow: 0px 0px 20px 0px rgba(20, 20, 20, 0.3);
     }
     .whatsapp {
       position: fixed;
@@ -30,7 +30,7 @@ i {
       width: 55px;
     }
     body {
-      background: url("/assets/FONDO.png");
+      background: url("/assets/FONDO.jpg");
       background-size: cover;
       width: 50%;
       
