@@ -56,4 +56,11 @@ i {
 .navbar-nav .nav-link {
   color: #263067;
   font-weight: 500;
+
+}
+.navbar-collapse {
+  padding: 10px 15px; /* 👈 agrega esto para separar del borde */
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
