@@ -59,3 +59,74 @@ i {
   backdrop-filter: blur(4px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+/* ===== Botón Flotante de WhatsApp ===== */
+.whatsapp-flotante {
+  position: fixed;
+  width: auto;
+  height: auto;
+  bottom: 25px;
+  right: 25px;
+  background-color: #25d366; /* Color verde de WhatsApp */
+  color: #fff;
+  border-radius: 50px;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre el ícono y el texto */
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  z-index: 1000;
+  transition: transform 0.2s ease-in-out;
+}
+.whatsapp-flotante:hover {
+  transform: scale(1.05); /* Agranda un poco el botón al pasar el mouse */
+}
+
+.whatsapp-icono {
+  width: 24px;
+  height: 24px;
+  fill: white; /* Pinta el ícono SVG de blanco */
+}
+
+/* ===== Animación para el emoji de la mano 👋 ===== */
+@keyframes wave-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  } /* Mueve la mano hacia arriba */
+  20% {
+    transform: rotate(-8deg);
+  } /* Mueve la mano hacia abajo */
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  } /* Vuelve a la posición original */
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.whatsapp-flotante span {
+  display: flex; /* Para poder alinear el texto y el emoji */
+  align-items: center;
+  gap: 5px; /* Espacio entre ¡Hola! y el emoji */
+}
+
+/* Aplica la animación al emoji dentro del botón */
+.whatsapp-flotante span .emoji-wave {
+  display: inline-block; /* Necesario para que la transformación funcione */
+  animation: wave-animation 2.5s infinite; /* Aplica la animación, dura 2.5s y se repite infinitamente */
+  transform-origin: 70% 70%; /* El punto desde donde rota el emoji */
+}
