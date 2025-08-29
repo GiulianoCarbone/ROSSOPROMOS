@@ -41,10 +41,42 @@ i {
   box-shadow: none;
 }
 
-.navbar-toggler {
+/* ===== Nuevo Botón Hamburguesa Animado ===== */
+.custom-toggler {
   border: none;
   background-color: transparent;
-   box-shadow: 5px 5px 11px;
+  padding: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-toggler:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.custom-toggler .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #ff8325; /* Color azul de tu marca */
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Animación a 'X' cuando el menú se expande */
+.custom-toggler[aria-expanded="true"] .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.custom-toggler[aria-expanded="true"] .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.custom-toggler[aria-expanded="true"] .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 
@@ -80,6 +112,28 @@ i {
   z-index: 1000;
   transition: transform 0.2s ease-in-out;
 }
+/* ===== Botón Flotante de WhatsApp ===== */
+.whatsapp-flotante {
+  position: fixed;
+  width: auto;
+  height: auto;
+  bottom: 25px;
+  right: 25px;
+  background-color: #25d366; /* Color verde de WhatsApp */
+  color: #fff;
+  border-radius: 50px;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre el ícono y el texto */
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  z-index: 1000;
+  transition: transform 0.2s ease-in-out;
+}
+
 .whatsapp-flotante:hover {
   transform: scale(1.05); /* Agranda un poco el botón al pasar el mouse */
 }
@@ -129,4 +183,77 @@ i {
   display: inline-block; /* Necesario para que la transformación funcione */
   animation: wave-animation 2.5s infinite; /* Aplica la animación, dura 2.5s y se repite infinitamente */
   transform-origin: 70% 70%; /* El punto desde donde rota el emoji */
+}
+
+
+/* ===== Sección de Promociones y Redes Sociales (Animación Aurora) ===== */
+.social-promo-section {
+  background-color: #f8f9fa;
+  padding: 1rem 1rem;
+  text-align: center;
+  padding-bottom: 0rem;
+}
+
+.social-promo-section h4 {
+  font-weight: bold;
+  color: #263067;
+  font-family: sans-serif;
+  margin-bottom: 0rem;
+}
+
+.social-promo-section p {
+  color: #6c757d;
+  font-family: sans-serif;
+  margin-bottom: 0rem;
+}
+
+.social-promo-section .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.social-promo-section .social-icon-link {
+  text-decoration: none;
+  font-size: 2.8rem;
+  display: inline-block;
+  position: relative; /* Clave para el efecto */
+  
+  /* Hacemos el color del ícono transparente para revelar el fondo */
+  color: transparent;
+  
+  /* Creamos el fondo con un gradiente de tus colores */
+  background: linear-gradient(90deg, #263067, #ED6434, #263067);
+  background-size: 200% 100%; /* El doble de ancho para poder moverlo */
+  
+  /* La magia: recortamos el fondo para que solo se vea en el texto/ícono */
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  /* Aplicamos la animación de barrido */
+  animation: aurora-sweep 4s linear infinite;
+}
+
+/* Detenemos la animación continua en pantallas grandes y activamos la de hover */
+@media (min-width: 768px) {
+  .social-promo-section .social-icon-link {
+    animation: none; /* Desactivamos el barrido en escritorio */
+    background-position: 0% 50%; /* Posición inicial del gradiente */
+    transition: background-position 0.6s ease-in-out, transform 0.4s ease;
+  }
+
+  .social-promo-section .social-icon-link:hover {
+    background-position: 100% 50%; /* Movemos el gradiente al pasar el mouse */
+    transform: rotateY(360deg); /* Añadimos un giro 3D como bonus */
+  }
+}
+
+/* Definición de la animación de barrido de color */
+@keyframes aurora-sweep {
+  0% {
+    background-position: 200% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
