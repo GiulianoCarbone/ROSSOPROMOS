@@ -257,3 +257,139 @@ i {
     background-position: 0% 50%;
   }
 }
+
+/* ===== ESTILOS PARA NEWSLETTER (NUEVO) ===== */
+.newsletter-section {
+  background-color: #263067; /* Usamos el azul de tu marca */
+  color: #fff;
+  padding: 24px 0;
+  border-top: 1px solid #e5e7eb; /* Línea separadora sutil */
+}
+
+.newsletter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.newsletter-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.newsletter-form {
+  display: flex;
+  min-width: 350px; /* Ancho mínimo para el formulario */
+}
+
+.newsletter-form input {
+  flex-grow: 1; /* El input ocupa el espacio disponible */
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px 0 0 8px; /* Bordes redondeados solo a la izquierda */
+  font-size: 1rem;
+  outline: none;
+}
+
+.newsletter-form button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 0 8px 8px 0; /* Bordes redondeados solo a la derecha */
+  background-color: #fff;
+  color: #263067;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.newsletter-form button:hover {
+  background-color: #f3f4f6;
+}
+
+/* --- Estilos para la versión móvil --- */
+@media (max-width: 768px) {
+  .newsletter-container {
+    flex-direction: column; /* Apilamos los elementos */
+    text-align: center;
+  }
+  .newsletter-form {
+    min-width: 100%; /* El formulario ocupa todo el ancho */
+  }
+}
+
+/* ===== ESTILOS PARA MENSAJE DE NEWSLETTER (NUEVO) ===== */
+.newsletter-message {
+  display: none; /* Oculto por defecto */
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+}
+
+.newsletter-message.success {
+  background-color: #d4edda; /* Un verde suave, como el de tu imagen */
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+  
+/* ===== ESTILOS PARA ANIMACIÓN DE EMOJIS (VERSIÓN 1 CON PAUSA) ===== */
+
+/* Hacemos que los spans se puedan animar correctamente */
+.newsletter-title .emoji-envelope,
+.newsletter-title .emoji-fire {
+  display: inline-block; 
+}
+
+/* 1. Animación para el sobre (se balancea y luego pausa) */
+.emoji-envelope {
+  animation: shake-and-rest 4s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+  transform-origin: bottom center;
+}
+
+/* Definimos la secuencia de movimiento y la pausa */
+@keyframes shake-and-rest {
+  /* Movimiento (primeros 2 segundos) */
+  2.5%, 22.5% { transform: rotate(-3deg); }
+  5%, 20% { transform: rotate(3deg); }
+  7.5%, 12.5%, 17.5% { transform: rotate(-5deg); }
+  10%, 15% { transform: rotate(5deg); }
+  /* Pausa (últimos 2 segundos) */
+  25%, 100% { transform: rotate(0); }
+}
+
+/* 2. Animación original para el fuego (late/pulsa) */
+.emoji-fire {
+  animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+/* Definimos el efecto de pulso */
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+.main-footer .container {
+  text-align: center;
+  
+}
+.main-footer {
+  color: #263067;
+  padding: 10px 0px;
+}
+
+a.copyright {
+  text-decoration: none; /* Quita el subrayado */
+  color: inherit;        /* Hereda el color del texto del párrafo */
+  cursor: pointer;       /* Puntero tipo mano */
+}
+
+a.copyright:hover {
+  color: #ff8325; /* (opcional) cambia el color al pasar el mouse */
+}
