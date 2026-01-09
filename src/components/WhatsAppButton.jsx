@@ -8,7 +8,7 @@ export default function WhatsAppButton() {
             target="_blank"
             rel="noopener noreferrer"
         >
-            <i className="bi bi-whatsapp fs-4"></i>
+            <i className="bi bi-whatsapp fs-5"></i>
             <span>¡Hola! <span className="emoji-wave">👋</span></span>
         </a>
     )

@@ -12,7 +12,7 @@ function App() {
     return (
         <Router>
             <Navbar />
-            <div className="container" style={{ minHeight: '80vh' }}>
+            <main style={{ minHeight: '80vh' }}>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
@@ -22,7 +22,7 @@ function App() {
                         </PrivateRoute>
                     } />
                 </Routes>
-            </div>
+            </main>
             <WhatsAppButton />
             <Newsletter />
         </Router>

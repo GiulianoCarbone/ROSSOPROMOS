@@ -8,7 +8,7 @@ export default function Newsletter() {
                     <div className="row align-items-center">
                         <div className="col-md-6 mb-3 mb-md-0 text-center text-md-start">
                             <h3 className="newsletter-title m-0">
-                                Suscribite y recibí ofertas
+                                Suscribite y no te pierdas nuestras mejores ofertas y novedades
                                 <span className="ms-2 fs-4">📩</span>
                                 <span className="ms-2 fs-4">🔥</span>
                             </h3>

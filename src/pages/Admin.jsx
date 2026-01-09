@@ -305,144 +305,146 @@ export default function Admin() {
     }
 
     return (
-        <div className="row">
-            {/* Upload/Edit Column */}
-            <div className="col-md-4 mb-4">
-                <div className={`card shadow-sm sticky-top border-${idToEdit ? 'warning' : 'primary'}`} style={{ top: '100px' }}>
-                    <div className={`card-header text-white ${idToEdit ? 'bg-warning' : 'bg-primary'}`}>
-                        <h5 className="mb-0 text-white">
-                            {idToEdit ? '✏️ Editando Producto' : '📤 Carga Masiva'}
-                        </h5>
-                    </div>
-                    <div className="card-body">
-                        {!idToEdit && (
-                            <div className="alert alert-info small p-2 mb-3">
-                                <i className="bi bi-info-circle me-1"></i>
-                                Tip: Puedes seleccionar <strong>muchas fotos</strong> a la vez.
-                            </div>
-                        )}
-
-                        <form onSubmit={handleSubmit}>
-                            {idToEdit && (
-                                <>
-                                    <div className="mb-3">
-                                        <label className="form-label">Título *</label>
-                                        <input
-                                            className="form-control"
-                                            value={title}
-                                            onChange={e => setTitle(e.target.value)}
-                                            placeholder="Nombre del producto"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Categoría *</label>
-                                        <select
-                                            className="form-select"
-                                            value={category}
-                                            onChange={e => setCategory(e.target.value)}
-                                            required
-                                        >
-                                            <option value="">Seleccionar...</option>
-                                            {CATEGORY_OPTIONS.map(opt => (
-                                                <option key={opt.value} value={opt.value}>{opt.label}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </>
+        <div className="container pt-5 mt-5">
+            <div className="row">
+                {/* Upload/Edit Column */}
+                <div className="col-md-4 mb-4">
+                    <div className={`card shadow-sm sticky-top border-${idToEdit ? 'warning' : 'primary'}`} style={{ top: '100px' }}>
+                        <div className={`card-header text-white ${idToEdit ? 'bg-warning' : 'bg-primary'}`}>
+                            <h5 className="mb-0 text-white">
+                                {idToEdit ? '✏️ Editando Producto' : '📤 Carga Masiva'}
+                            </h5>
+                        </div>
+                        <div className="card-body">
+                            {!idToEdit && (
+                                <div className="alert alert-info small p-2 mb-3">
+                                    <i className="bi bi-info-circle me-1"></i>
+                                    Tip: Puedes seleccionar <strong>muchas fotos</strong> a la vez.
+                                </div>
                             )}
-                            <div className="mb-3">
-                                <label className="form-label">
-                                    {idToEdit ? 'Cambiar Imagen (Opcional)' : 'Seleccionar Imágenes'}
-                                </label>
-                                <input
-                                    id="fileInput"
-                                    type="file"
-                                    className="form-control"
-                                    accept="image/*"
-                                    multiple={!idToEdit}
-                                    onChange={handleValuesChange}
-                                    required={!idToEdit}
-                                />
-                            </div>
 
-                            <div className="d-grid gap-2">
-                                <button disabled={uploading} className={`btn ${idToEdit ? 'btn-warning text-white' : 'btn-primary'}`}>
-                                    {uploading ? 'Procesando...' : (idToEdit ? 'Guardar Cambios' : 'Subir Todas')}
-                                </button>
-
+                            <form onSubmit={handleSubmit}>
                                 {idToEdit && (
-                                    <button type="button" onClick={resetForm} className="btn btn-outline-secondary">
-                                        Cancelar Edición
+                                    <>
+                                        <div className="mb-3">
+                                            <label className="form-label">Título *</label>
+                                            <input
+                                                className="form-control"
+                                                value={title}
+                                                onChange={e => setTitle(e.target.value)}
+                                                placeholder="Nombre del producto"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label className="form-label">Categoría *</label>
+                                            <select
+                                                className="form-select"
+                                                value={category}
+                                                onChange={e => setCategory(e.target.value)}
+                                                required
+                                            >
+                                                <option value="">Seleccionar...</option>
+                                                {CATEGORY_OPTIONS.map(opt => (
+                                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </>
+                                )}
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        {idToEdit ? 'Cambiar Imagen (Opcional)' : 'Seleccionar Imágenes'}
+                                    </label>
+                                    <input
+                                        id="fileInput"
+                                        type="file"
+                                        className="form-control"
+                                        accept="image/*"
+                                        multiple={!idToEdit}
+                                        onChange={handleValuesChange}
+                                        required={!idToEdit}
+                                    />
+                                </div>
+
+                                <div className="d-grid gap-2">
+                                    <button disabled={uploading} className={`btn ${idToEdit ? 'btn-warning text-white' : 'btn-primary'}`}>
+                                        {uploading ? 'Procesando...' : (idToEdit ? 'Guardar Cambios' : 'Subir Todas')}
                                     </button>
+
+                                    {idToEdit && (
+                                        <button type="button" onClick={resetForm} className="btn btn-outline-secondary">
+                                            Cancelar Edición
+                                        </button>
+                                    )}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                {/* List Column */}
+                <div className="col-md-8">
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <h4 className="mb-0">Inventario (Arrastrar para ordenar)</h4>
+                    </div>
+
+                    <div className="table-responsive bg-white rounded shadow-sm">
+                        {/* DnD Context */}
+                        <DndContext
+                            sensors={sensors}
+                            collisionDetection={closestCenter}
+                            onDragEnd={handleDragEnd}
+                        >
+                            <table className="table table-hover align-middle mb-0">
+                                <thead className="table-light">
+                                    <tr>
+                                        <th width="50"></th> {/* Handle */}
+                                        <th width="80">Img</th>
+                                        <th>Título</th>
+                                        <th>Categoría</th>
+                                        <th>Estado</th>
+                                        <th className="text-end">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <SortableContext
+                                        items={products}
+                                        strategy={verticalListSortingStrategy}
+                                    >
+                                        {products.map(p => (
+                                            <SortableRow
+                                                key={p.id}
+                                                product={p}
+                                                onEdit={startEdit}
+                                                onDelete={handleDelete}
+                                                onUpdateStatus={updateStatus}
+                                                onUpdateCategory={updateCategory}
+                                                setPreviewImage={setPreviewImage}
+                                            />
+                                        ))}
+                                    </SortableContext>
+                                </tbody>
+                            </table>
+                        </DndContext>
+
+                        {products.length === 0 && <div className="p-4 text-center text-muted">Aún no hay productos cargados.</div>}
+                    </div>
+                </div>
+
+                {/* Image Preview Modal */}
+                <div className="modal fade" id="imageModal" tabIndex="-1" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered modal-lg">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Vista Previa</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body text-center">
+                                {previewImage && (
+                                    <img src={previewImage} alt="Preview" className="img-fluid" style={{ maxHeight: '70vh' }} />
                                 )}
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            {/* List Column */}
-            <div className="col-md-8">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h4 className="mb-0">Inventario (Arrastrar para ordenar)</h4>
-                </div>
-
-                <div className="table-responsive bg-white rounded shadow-sm">
-                    {/* DnD Context */}
-                    <DndContext
-                        sensors={sensors}
-                        collisionDetection={closestCenter}
-                        onDragEnd={handleDragEnd}
-                    >
-                        <table className="table table-hover align-middle mb-0">
-                            <thead className="table-light">
-                                <tr>
-                                    <th width="50"></th> {/* Handle */}
-                                    <th width="80">Img</th>
-                                    <th>Título</th>
-                                    <th>Categoría</th>
-                                    <th>Estado</th>
-                                    <th className="text-end">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <SortableContext
-                                    items={products}
-                                    strategy={verticalListSortingStrategy}
-                                >
-                                    {products.map(p => (
-                                        <SortableRow
-                                            key={p.id}
-                                            product={p}
-                                            onEdit={startEdit}
-                                            onDelete={handleDelete}
-                                            onUpdateStatus={updateStatus}
-                                            onUpdateCategory={updateCategory}
-                                            setPreviewImage={setPreviewImage}
-                                        />
-                                    ))}
-                                </SortableContext>
-                            </tbody>
-                        </table>
-                    </DndContext>
-
-                    {products.length === 0 && <div className="p-4 text-center text-muted">Aún no hay productos cargados.</div>}
-                </div>
-            </div>
-
-            {/* Image Preview Modal */}
-            <div className="modal fade" id="imageModal" tabIndex="-1" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered modal-lg">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">Vista Previa</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body text-center">
-                            {previewImage && (
-                                <img src={previewImage} alt="Preview" className="img-fluid" style={{ maxHeight: '70vh' }} />
-                            )}
                         </div>
                     </div>
                 </div>
