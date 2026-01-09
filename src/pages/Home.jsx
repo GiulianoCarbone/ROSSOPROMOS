@@ -78,7 +78,7 @@ export default function Home() {
                 <>
                     {/* === MOBILE CAROUSEL (Visible only on Mobile) === */}
                     <div className="d-block d-md-none mb-4 px-3">
-                        <div id="mobileCarousel" className="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
+                        <div key={filter} id="mobileCarousel" className="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
                             <div className="carousel-inner">
                                 {filteredProducts.map((product, index) => (
                                     <div key={product.id} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
