@@ -82,7 +82,7 @@ export default function Home() {
                             <div className="carousel-inner">
                                 {filteredProducts.map((product, index) => (
                                     <div key={product.id} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                                        <img src={product.image_url} className="d-block w-100" style={{ maxHeight: '85vh', objectFit: 'contain', backgroundColor: '#fff' }} alt={product.title} />
+                                        <img src={product.image_url} className="d-block w-100" style={{ maxHeight: '80svh', objectFit: 'contain', backgroundColor: '#fff' }} alt={product.title} />
                                         <div className="bg-white p-3 text-center border-top">
                                             <a
                                                 href={`https://api.whatsapp.com/send?phone=5493814146917&text=Hola! Estoy interesado en este producto: ${product.image_url}`}
