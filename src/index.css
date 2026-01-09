@@ -1,0 +1,243 @@
+:root {
+  --primary-orange: #ED6434;
+  --brand-blue: #263067;
+  --whatsapp-green: #25d366;
+  --light-gray: #f8f9fa;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--light-gray);
+  margin: 0;
+  padding: 0;
+  color: #333;
+  /* Background Image Logic */
+  background-image: url("/assets/FONDO.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+/* Navbar Customization */
+.transparent-navbar {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  color: var(--brand-blue) !important;
+  font-weight: bold;
+  /* Black */
+  /* Slightly larger */
+}
+
+.nav-link:hover {
+  color: var(--primary-orange) !important;
+}
+
+/* Navbar Icons Styling */
+.navbar-nav .nav-link i {
+  color: var(--primary-orange) !important;
+  display: inline-block;
+  /* Required for transform animations */
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.navbar-nav .nav-link:hover i {
+  transform: scale(1.4) rotate(10deg);
+}
+
+.navbar-nav .nav-link:active i {
+  transform: scale(0.95);
+}
+
+/* Custom Toggler */
+.custom-toggler {
+  border: none !important;
+  background-color: transparent !important;
+  padding: 0.5rem;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.custom-toggler:focus,
+.custom-toggler:active,
+.navbar-toggler:focus {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.custom-toggler .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #ff8325;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Card Styles matching original feel but cleaner */
+.card-product {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+  background-color: var(--brand-blue);
+  border-color: var(--brand-blue);
+}
+
+.btn-primary:hover {
+  background-color: #1a224a;
+  border-color: #1a224a;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-flotante {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: var(--whatsapp-green);
+  color: #fff;
+  border-radius: 50px;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  z-index: 1000;
+  transition: transform 0.2s ease-in-out;
+}
+
+.whatsapp-flotante:hover {
+  transform: scale(1.05);
+  color: white;
+}
+
+/* Animations */
+@keyframes wave-animation {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  10%,
+  30% {
+    transform: rotate(14deg);
+  }
+
+  20% {
+    transform: rotate(-8deg);
+  }
+
+  40% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+.emoji-wave {
+  display: inline-block;
+  animation: wave-animation 2.5s infinite;
+  transform-origin: 70% 70%;
+}
+
+/* Newsletter Styles */
+.newsletter-section {
+  background-color: var(--brand-blue);
+  color: #fff;
+  padding: 40px 0;
+  margin-top: 50px;
+}
+
+.newsletter-form input {
+  border-radius: 8px 0 0 8px;
+  border: none;
+  padding: 10px;
+}
+
+.newsletter-form button {
+  border-radius: 0 8px 8px 0;
+  background-color: white;
+  color: var(--brand-blue);
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+}
+
+
+/* Filter Buttons Brand Styling */
+.btn-brand-active {
+  background-color: var(--brand-blue) !important;
+  color: white !important;
+  border: none;
+}
+
+.btn-brand-outline {
+  background-color: white;
+  color: var(--primary-orange) !important;
+  border: 1px solid var(--primary-orange);
+}
+
+.btn-brand-outline:hover {
+  background-color: var(--primary-orange);
+  color: white !important;
+}
+
+.main-footer {
+  background-color: white;
+  color: var(--brand-blue);
+  padding: 20px 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Mobile Menu Dropdown Styling */
+.navbar-collapse {
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  border-radius: 12px;
+  /* Smooth corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  /* Soft shadow for depth */
+  margin-top: 10px;
+  min-width: 220px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure links are readable on the white background */
+.navbar-nav .nav-link {
+  padding: 6px 15px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: var(--light-gray);
+  color: var(--primary-orange) !important;
+}
