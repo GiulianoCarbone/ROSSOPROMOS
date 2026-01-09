@@ -9,8 +9,8 @@ export default function Newsletter() {
                         <div className="col-md-6 mb-3 mb-md-0 text-center text-md-start">
                             <h3 className="newsletter-title m-0">
                                 Suscribite y no te pierdas nuestras mejores ofertas y novedades
-                                <span className="ms-2 fs-4">📩</span>
-                                <span className="ms-2 fs-4">🔥</span>
+                                <span className="ms-2 fs-4 d-inline-block animate-bounce">📩</span>
+                                <span className="ms-2 fs-4 d-inline-block animate-pulse">🔥</span>
                             </h3>
                         </div>
                         <div className="col-md-6">
