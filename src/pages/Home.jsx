@@ -120,7 +120,6 @@ export default function Home() {
                                             <img src={product.image_url} className="card-img-top product-img" alt={product.title} />
                                         </div>
                                         <div className="card-body">
-                                            <h5 className="card-title text-truncate">{product.title}</h5>
                                             <a
                                                 href={`https://api.whatsapp.com/send?phone=5493814146917&text=Hola! Estoy interesado en este producto: ${product.image_url}`}
                                                 target="_blank"
