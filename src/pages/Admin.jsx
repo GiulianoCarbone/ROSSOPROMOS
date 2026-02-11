@@ -203,12 +203,25 @@ export default function Admin() {
 
                 if (imageFiles && imageFiles[0]) {
                     const file = imageFiles[0]
-                    const fileExt = file.name.split('.').pop()
-                    const filePath = `${Date.now()}.${fileExt}`
-                    const { error: uploadError } = await supabase.storage.from('images').upload(filePath, file)
-                    if (uploadError) throw uploadError
-                    const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(filePath)
-                    updates.image_url = publicUrl
+
+                    // Upload to Cloudinary
+                    const formData = new FormData()
+                    formData.append('file', file)
+                    formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET)
+                    formData.append('folder', 'rossopromos/productos')
+
+                    const response = await fetch(
+                        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                        {
+                            method: 'POST',
+                            body: formData
+                        }
+                    )
+
+                    if (!response.ok) throw new Error('Error al subir imagen a Cloudinary')
+
+                    const data = await response.json()
+                    updates.image_url = data.secure_url
                 }
 
                 const { error } = await supabase.from('products').update(updates).eq('id', idToEdit)
@@ -221,26 +234,45 @@ export default function Admin() {
             else if (imageFiles && imageFiles.length > 0) {
                 for (let i = 0; i < imageFiles.length; i++) {
                     const file = imageFiles[i]
-                    const fileExt = file.name.split('.').pop()
-                    const fileName = `${Date.now()}_${i}.${fileExt}`
 
-                    const { error: uploadError } = await supabase.storage.from('images').upload(fileName, file)
-                    if (uploadError) continue
+                    // Upload to Cloudinary
+                    const formData = new FormData()
+                    formData.append('file', file)
+                    formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET)
+                    formData.append('folder', 'rossopromos/productos')
 
-                    const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(fileName)
+                    try {
+                        const response = await fetch(
+                            `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                            {
+                                method: 'POST',
+                                body: formData
+                            }
+                        )
 
-                    const position = Date.now() * 1000 + i
+                        if (!response.ok) {
+                            console.error(`Error uploading image ${i + 1}`)
+                            continue
+                        }
 
-                    const draftTitle = title ? `${title} (${i + 1})` : file.name
-                    const draftCat = category ? category.toLowerCase() : 'sin-clasificar'
+                        const data = await response.json()
+                        const imageUrl = data.secure_url
 
-                    await supabase.from('products').insert([{
-                        title: draftTitle,
-                        category: draftCat,
-                        image_url: publicUrl,
-                        active: false,
-                        position: position
-                    }])
+                        const position = Date.now() * 1000 + i
+                        const draftTitle = title ? `${title} (${i + 1})` : file.name
+                        const draftCat = category ? category.toLowerCase() : 'sin-clasificar'
+
+                        await supabase.from('products').insert([{
+                            title: draftTitle,
+                            category: draftCat,
+                            image_url: imageUrl,
+                            active: false,
+                            position: position
+                        }])
+                    } catch (err) {
+                        console.error(`Error processing image ${i + 1}:`, err)
+                        continue
+                    }
                 }
 
                 alert(`¡${imageFiles.length} Imágenes subidas! Estan como 'Ocultas'.`)
