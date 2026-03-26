@@ -9,7 +9,21 @@ export default function Home() {
 
     useEffect(() => {
         fetchProducts()
+        trackEvent('visit')
     }, [])
+
+    const trackEvent = async (type) => {
+        try {
+            const { error } = await supabase.from('page_views').insert([{ event_type: type }])
+            if (error) {
+                console.error('trackEvent error:', error.message)
+            } else {
+                console.log(`Event tracked: ${type}`)
+            }
+        } catch (err) {
+            console.error('trackEvent unexpected error:', err)
+        }
+    }
 
     const fetchProducts = async () => {
         try {
@@ -88,6 +102,7 @@ export default function Home() {
                                                 href={`https://api.whatsapp.com/send?phone=5493814146917&text=Hola! Estoy interesado en este producto: ${product.image_url}`}
                                                 target="_blank"
                                                 className="btn btn-success w-100 rounded-pill"
+                                                onClick={() => trackEvent('contact')}
                                             >
                                                 <i className="bi bi-whatsapp me-2"></i>Consultar
                                             </a>
@@ -124,6 +139,7 @@ export default function Home() {
                                                 href={`https://api.whatsapp.com/send?phone=5493814146917&text=Hola! Estoy interesado en este producto: ${product.image_url}`}
                                                 target="_blank"
                                                 className="btn btn-outline-success w-100"
+                                                onClick={() => trackEvent('contact')}
                                             >
                                                 <i className="bi bi-whatsapp me-2"></i>Consultar
                                             </a>
