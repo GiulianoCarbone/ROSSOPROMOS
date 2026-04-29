@@ -25,31 +25,41 @@ export default function AdminMetricas() {
 
         try {
             const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
-
-            // Fechas de inicio y fin del día ajustadas a ISO
             const fromDate = new Date(dateFrom + 'T00:00:00')
             const toDate = new Date(dateTo + 'T23:59:59')
 
-            const { data, error } = await supabase
+            // 1. Aggregated daily data via RPC (avoids the 1000-row Supabase limit)
+            const { data: rpcData, error: rpcError } = await supabase
+                .rpc('get_metrics_summary', {
+                    from_date: fromDate.toISOString(),
+                    to_date: toDate.toISOString()
+                })
+
+            if (rpcError) throw rpcError
+
+            // 2. "Visitantes ahora" — solo las últimas filas recientes (rango pequeño, sin límite)
+            const { data: recentData, error: recentError } = await supabase
                 .from('page_views')
                 .select('visited_at, event_type')
-                .gte('visited_at', fromDate.toISOString())
-                .lte('visited_at', toDate.toISOString())
+                .eq('event_type', 'visit')
+                .gte('visited_at', fiveMinutesAgo.toISOString())
 
-            if (error) throw error
+            if (recentError) throw recentError
 
-            const totalVisits = data.filter(r => r.event_type === 'visit').length
-            const totalContacts = data.filter(r => r.event_type === 'contact').length
-            const activeNow = data.filter(r =>
-                r.event_type === 'visit' && new Date(r.visited_at) >= fiveMinutesAgo
-            ).length
+            const activeNow = recentData.length
 
+            // Totales desde los datos agregados
+            const totalVisits = rpcData.reduce((acc, row) => acc + Number(row.visit_count), 0)
+            const totalContacts = rpcData.reduce((acc, row) => acc + Number(row.contact_count), 0)
+
+            // Construcción del array diario con todos los días del rango (incluye días sin datos)
             const dailyMap = {}
-            data.forEach(row => {
-                const day = row.visited_at.split('T')[0]
-                if (!dailyMap[day]) dailyMap[day] = { date: day, Visitas: 0, Contactos: 0 }
-                if (row.event_type === 'visit') dailyMap[day].Visitas++
-                else dailyMap[day].Contactos++
+            rpcData.forEach(row => {
+                dailyMap[row.day] = {
+                    date: row.day,
+                    Visitas: Number(row.visit_count),
+                    Contactos: Number(row.contact_count)
+                }
             })
 
             const dailyDataResult = []
